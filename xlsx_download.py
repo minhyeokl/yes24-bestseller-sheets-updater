@@ -49,8 +49,11 @@ def merge_xlsx(week_no):
     for filename in glob.glob(f'bestseller-{week_no}-*.xlsx'):
         os.remove(filename)
 
-if __name__ == '__main__':
+def download_this_week_bestseller():
     week_no=calculate_week_no()
     for i in range(1, 10):
         download_xlsx(week_no, page=i)
     merge_xlsx(week_no)
+
+if __name__ == '__main__':
+    download_this_week_bestseller()
