@@ -1,10 +1,11 @@
 import requests
-import datetime
 import pandas as pd
 import glob
 import os
 
-def download_xlsx(week_no, page=1):
+from calculate_week_no import calculate_week_no
+
+def download_week_xlsx(week_no, page=1):
     url = 'https://www.yes24.com/Product/Category/BestSellerExcel'
     data = {
         'bestType': 'MONTHWEEK_BESTSELLER',
@@ -30,10 +31,6 @@ def download_xlsx(week_no, page=1):
     with open(f'bestseller-{week_no}-page{page}.xlsx', 'wb') as f:
         f.write(response.content)
 
-def calculate_week_no(date=datetime.date.today()):
-    # 나중에 시작 주 번호 업데이트
-    year = date.year
-    return (year-2024)*52 + 1043 + date.isocalendar()[1]
 
 def merge_xlsx(week_no):
     all_data = pd.DataFrame()
@@ -52,7 +49,7 @@ def merge_xlsx(week_no):
 def download_this_week_bestseller():
     week_no=calculate_week_no()
     for i in range(1, 10):
-        download_xlsx(week_no, page=i)
+        download_week_xlsx(week_no, page=i)
     merge_xlsx(week_no)
 
 if __name__ == '__main__':
