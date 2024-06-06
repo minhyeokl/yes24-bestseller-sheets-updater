@@ -50,9 +50,7 @@ def merge_xlsx(week_no):
         os.remove(filename)
 
 if __name__ == '__main__':
-    
     week_no=calculate_week_no()
-
     for i in range(1, 10):
         download_xlsx(week_no, page=i)
     merge_xlsx(week_no)
